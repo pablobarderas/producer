@@ -14,11 +14,16 @@ public class MessageController {
 
     private final MessageService messageService;
 
-    @PostMapping("/message/{message}")
-    public ResponseEntity<?> sendMessage(@PathVariable("message") String message ){
+    @PostMapping("/offer/{id}/{contactNum}/{offer}")
+    public ResponseEntity<?> sendMessage(
+            @PathVariable("id") Integer id,
+            @PathVariable("contactNum") String contactNum
+            ,@PathVariable("offer") String offer){
 
-        messageService.write(message);
-        return ResponseEntity.ok(message);
+        // BUILD AND SEND MESSAGE
+        String offerMessage = String.format("id: %d | contact num: %s | offer: %s", id, contactNum, offer);
+        messageService.write(offerMessage);
+        return ResponseEntity.ok(offerMessage);
     }
 
 }
